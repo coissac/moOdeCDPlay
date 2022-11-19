@@ -1,0 +1,37 @@
+*** mpd.php.ori	2022-10-14 10:34:32.384169951 +0200
+--- mpd.php	2022-10-14 10:32:51.423743243 +0200
+*************** function enhanceMetadata($current, $sock
+*** 678,686 ****
+  				}
+  			} else {
+  				// Song file
+! 				$current['coverurl'] = '/coverart.php/' . rawurlencode($song['file']);
+! 				$level = stripos(dirname($song['file']), '.cue', -4) === false ? 1 : 2;
+! 				$current['thumb_hash'] = md5(dirname($song['file'], $level));
+  			}
+  
+  			// DEBUG
+--- 678,700 ----
+  				}
+  			} else {
+  				// Song file
+!                 //
+! 				// Here is the modification for moOdeCDPlayer
+! 				//
+! 				// orginal line :
+! 				//   $current['coverurl'] = '/coverart.php/' . rawurlencode($song['file']);
+! 
+! 				// CD Audio
+! 				if (substr($song['file'], 0, 8) == 'cdda:///') {
+! 						$current['coverurl'] = 'imagesw/current_cd/' . basename(glob("/var/local/www/imagesw/current_cd/*.jpg")[0]);
+! 					}
+! 				// Song file
+! 				else {
+! 						$current['coverurl'] = '/coverart.php/' . rawurlencode($song['file']);
+! 						$level = stripos(dirname($song['file']), '.cue', -4) === false ? 1 : 2;
+! 						$current['thumb_hash'] = md5(dirname($song['file'], $level));
+! 				}
+! 				//  END of the changes
+  			}
+  
+  			// DEBUG
