@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Install V-EC1 moOdeCDPlay files in moOde."
+echo "Install V-EC2 moOdeCDPlay files in moOde."
 
-# moOdeCDPlay V0.1 script
-if [ ! -f /var/www/command/moode.php ]; then
+# moOdeCDPlay V0.2 script
+if [ ! -f /var/www/inc/mpd.php ]; then
     echo
     echo "I'm sorry, Dave, I'm afraid I can't do that."
     echo "In case you didn't notice, this doesn't look like a moOde installation."
@@ -13,11 +13,11 @@ fi
 sudo apt -y install libcdio-dev \
                     libcdio-utils \
                     python3-musicbrainzngs \
+                    python3-cdio \
                     python3-requests \
                     python3-libdiscid \
                     swig 
 
-sudo pip3 install -U pycdio==2.1.0
 sudo pip3 install -U python-mpd2
 
 sudo cp addaudiocd.sh /usr/local/bin/addaudiocd.sh
@@ -30,12 +30,12 @@ sudo chmod +x /usr/local/bin/addaudiocd.sh
 sudo chmod +x /usr/local/bin/remaudiocd.sh
 sudo chmod +x /usr/local/bin/moodecdplayer
 
-if [[ ! -f /var/www/inc/playerlib.php.ori ]] ; then
-    sudo cp /var/www/inc/playerlib.php /var/www/inc/playerlib.php.ori
+if [[ ! -f /var/www/inc/mpd.php.ori ]] ; then
+    sudo cp /var/www/inc/mpd.php /var/www/inc/mpd.php.ori
 fi
 
-sudo cp /var/www/inc/playerlib.php.ori /var/www/inc/playerlib.php
-sudo patch /var/www/inc/playerlib.php < playerlib.php.patch
+sudo cp /var/www/inc/mpd.php.ori /var/www/inc/mpd.php
+sudo patch /var/www/inc/mpd.php < mpd.php.patch
 
 
 sudo mkdir -p /var/lib/moode_cd_library/default_cd

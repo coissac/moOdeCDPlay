@@ -3,6 +3,9 @@
 # a set of routines which enable moOde
 # to play a music CD
 
+# V0.3 2022-10-14
+# EC - Adapted for MoodeAudio 8.2
+
 # V0.2 2021-05-14
 # EC - tested on MoodeAudio 7.2
 #    - build a play list from the CD content 
